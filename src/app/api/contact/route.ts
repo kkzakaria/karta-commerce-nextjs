@@ -14,7 +14,7 @@ const contactSchema = z.object({
 
 // Configuration du transporteur SMTP
 const createTransporter = () => {
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT || '587'),
     secure: process.env.SMTP_SECURE === 'true', // true pour 465, false pour autres ports
@@ -143,7 +143,7 @@ ${message}
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Données du formulaire invalides', details: error.errors },
+        { error: 'Données du formulaire invalides', details: error.issues },
         { status: 400 }
       );
     }

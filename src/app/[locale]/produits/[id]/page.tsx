@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
 import { getMotorcycleById, motorcycles } from '@/data/products';
 import { routing } from '@/i18n/routing';
 import ProductPageContent from './ProductPageContent';
@@ -21,7 +20,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { locale, id } = await params;
   const motorcycle = getMotorcycleById(id);
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
 
   if (!motorcycle) {
     return {
