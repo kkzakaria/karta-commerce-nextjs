@@ -1,0 +1,164 @@
+{
+  "Navigation": {
+    "home": "Accueil",
+    "products": "Nos Motos",
+    "about": "À Propos",
+    "contact": "Contact",
+    "openMainMenu": "Ouvrir le menu principal"
+  },
+  "Hero": {
+    "title": "Découvrez l'Excellence",
+    "subtitle": "Une sélection premium de motos pour tous les passionnés",
+    "viewModels": "Voir Nos Modèles"
+  },
+  "Products": {
+    "premium": "Premium",
+    "power": "Puissance:",
+    "maxSpeed": "Vitesse max:",
+    "consumption": "Consommation:",
+    "weight": "Poids:",
+    "viewDetails": "Voir les détails",
+    "backToProducts": "Retour aux produits",
+    "technicalSpecs": "Spécifications Techniques",
+    "engine": "Moteur",
+    "torque": "Couple",
+    "fuelCapacity": "Capacité réservoir",
+    "starter": "Démarrage",
+    "brakeType": "Type de freins",
+    "dimensions": "Dimensions",
+    "wheelbase": "Empattement",
+    "tires": "Pneus",
+    "maxLoad": "Charge max",
+    "containerQty": "Quantité conteneur",
+    "bore": "Alésage",
+    "interestedInProduct": "Je suis intéressé par le {productName}",
+    "contactForQuote": "Contactez-nous pour un devis personnalisé",
+    "specifications": "Spécifications complètes"
+  },
+  "About": {
+    "title": "À Propos de KARTA COMMERCE GENERAL",
+    "description": "KARTA COMMERCE GENERAL s'est imposé comme le référent en matière de commerce de qualité en Côte d'Ivoire. Notre gamme QASKI représente notre excellence dans le domaine des motos premium. Notre passion pour l'excellence et notre engagement envers nos clients nous distinguent.",
+    "cards": {
+      "quality": {
+        "title": "Excellence & Qualité",
+        "description": "Nous sélectionnons rigoureusement nos modèles pour vous offrir uniquement des motos de haute qualité, fiables et performantes. Chaque véhicule passe par un contrôle qualité strict avant la livraison."
+      },
+      "service": {
+        "title": "Service Après-Vente",
+        "description": "Notre équipe technique expérimentée vous accompagne bien au-delà de l'achat. Maintenance, réparations, pièces détachées - nous assurons la longévité de votre investissement."
+      },
+      "pricing": {
+        "title": "Prix Compétitifs",
+        "description": "Grâce à nos partenariats directs avec les constructeurs et notre optimisation logistique, nous vous proposons les meilleurs prix du marché sans compromis sur la qualité."
+      },
+      "delivery": {
+        "title": "Livraison Rapide",
+        "description": "Notre réseau logistique optimisé nous permet de livrer rapidement partout en Côte d'Ivoire. Stock permanent disponible pour une livraison sous 48h en région d'Abidjan."
+      },
+      "advice": {
+        "title": "Conseil Personnalisé",
+        "description": "Nos experts vous accompagnent dans le choix de votre moto selon vos besoins, votre budget et votre usage. Nous prenons le temps de comprendre vos attentes pour vous orienter parfaitement."
+      },
+      "payment": {
+        "title": "Facilités de Paiement",
+        "description": "Solutions de paiement adaptées à tous les profils. Facilités de paiement échelonné, arrangements personnalisés - nous étudions ensemble la formule qui vous convient le mieux."
+      }
+    },
+    "stats": {
+      "motorcyclesSold": "Motos Vendues",
+      "yearsExperience": "Années d'Expérience",
+      "satisfiedClients": "Clients Satisfaits",
+      "customerSupport": "Support Client"
+    },
+    "values": {
+      "title": "Nos Valeurs",
+      "transparency": {
+        "title": "Transparence",
+        "description": "Prix clairs, conditions transparentes, aucune surprise. Nous croyons en une relation de confiance basée sur l'honnêteté et la clarté dans tous nos échanges."
+      },
+      "reactivity": {
+        "title": "Réactivité",
+        "description": "Réponse rapide à vos demandes, livraisons express, service client disponible. Votre temps est précieux, nous respectons cela en étant toujours réactifs."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Toujours à l'affût des dernières technologies et modèles. Nous investissons continuellement pour vous proposer les motos les plus modernes du marché."
+      },
+      "localEngagement": {
+        "title": "Engagement Local",
+        "description": "Entreprise ivoirienne, nous contribuons au développement économique local en créant des emplois et en soutenant l'économie de notre pays."
+      }
+    }
+  },
+  "Contact": {
+    "title": "Contactez-Nous",
+    "subtitle": "Intéressé par nos motos ? Contactez-nous pour plus d'informations ou un devis personnalisé",
+    "form": {
+      "title": "Formulaire de Contact",
+      "name": "Nom complet",
+      "nameRequired": "Le nom doit contenir au moins 2 caractères",
+      "email": "Email",
+      "emailInvalid": "Email invalide",
+      "phone": "Téléphone",
+      "product": "Modèle d'intérêt",
+      "selectModel": "Sélectionnez un modèle",
+      "message": "Message",
+      "messageRequired": "Le message doit contenir au moins 10 caractères",
+      "send": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "success": "Merci ! Votre message a été envoyé avec succès. Nous vous recontacterons bientôt.",
+      "namePlaceholder": "Votre nom complet",
+      "emailPlaceholder": "votre@email.com",
+      "phonePlaceholder": "+225 07 77 39 25 46",
+      "messagePlaceholder": "Décrivez votre demande...",
+      "selectProduct": "Sélectionnez un modèle",
+      "submit": "Envoyer le message",
+      "unknownError": "Erreur inconnue",
+      "sendError": "Erreur lors de l'envoi du message"
+    },
+    "modal": {
+      "title": "Contact"
+    },
+    "whatsapp": {
+      "title": "Contact Rapide",
+      "description": "Besoin d'une réponse immédiate ? Contactez-nous directement sur WhatsApp",
+      "button": "Écrire sur WhatsApp",
+      "buttonWithProduct": "Demander un Devis WhatsApp",
+      "orCall": "ou appelez-nous",
+      "messageDefault": "Bonjour KARTA COMMERCE GENERAL ! Je suis intéressé(e) par vos motos QASKI. Pourriez-vous me donner plus d'informations ?",
+      "messageWithProduct": "Bonjour KARTA COMMERCE GENERAL ! Je suis intéressé(e) par le modèle {productName} de votre gamme QASKI. Pourriez-vous me fournir plus d'informations et un devis ? Merci."
+    },
+    "info": {
+      "phone": "Téléphone:",
+      "address": "Adresse:",
+      "hours": "Horaires:"
+    }
+  },
+  "Footer": {
+    "description": "Votre partenaire de confiance pour l'achat de motos premium. Qualité, performance et service client exceptionnel.",
+    "contact": "Contact",
+    "services": "Services",
+    "servicesList": {
+      "newSales": "Vente de motos neuves",
+      "financing": "Financement personnalisé",
+      "afterSales": "Service après-vente",
+      "spareParts": "Pièces détachées"
+    },
+    "allRightsReserved": "Tous droits réservés."
+  },
+  "ProductModels": {
+    "qs125-8": "QS125-8 - Moto Sportive 125cc",
+    "dfk-qs150zh": "DFK QS150ZH - Tricycle Utilitaire 150cc",
+    "qs125-8a": "QS125-8A - Moto Classique 125cc",
+    "qs50-3": "QS50-3 - Moto Légère 50cc",
+    "qs125-10": "QS125-10 - Moto Vintage 125cc",
+    "qs125-30": "QS125-30 - Moto Moderne 125cc",
+    "qs150zh-175": "QS150ZH-175 - Tricycle Premium 150cc",
+    "qs150zh-200": "QS150ZH-200 - Tricycle Heavy Duty 150cc"
+  },
+  "Metadata": {
+    "title": "KARTA COMMERCE GENERAL - La qualité aux meilleurs prix | Motos QASKI",
+    "description": "KARTA COMMERCE GENERAL vous propose sa gamme QASKI de motos premium en Côte d'Ivoire. QS125, QS150, tricycles utilitaires. La qualité aux meilleurs prix avec service après-vente, financement et livraison rapide.",
+    "keywords": "moto, Côte d'Ivoire, Abidjan, QS125, tricycle, concessionnaire, vente moto, financement moto"
+  }
+}
