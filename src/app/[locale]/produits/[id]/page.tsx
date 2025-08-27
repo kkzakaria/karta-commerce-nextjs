@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getMotorcycleById, motorcycles } from '@/data/products';
+import { getMotorcycleById, getMotorcycles } from '@/data/products-db';
 import { routing } from '@/i18n/routing';
 import ProductPageContent from './ProductPageContent';
 
@@ -9,6 +9,7 @@ interface ProductPageProps {
 }
 
 export async function generateStaticParams() {
+  const motorcycles = await getMotorcycles();
   return routing.locales.flatMap((locale) =>
     motorcycles.map((motorcycle) => ({
       locale,
@@ -19,7 +20,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { locale, id } = await params;
-  const motorcycle = getMotorcycleById(id);
+  const motorcycle = await getMotorcycleById(id);
 
   if (!motorcycle) {
     return {
@@ -57,7 +58,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
-  const motorcycle = getMotorcycleById(id);
+  const motorcycle = await getMotorcycleById(id);
 
   if (!motorcycle) {
     notFound();

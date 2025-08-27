@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
-import { motorcycles } from '@/data/products';
+import { getMotorcycles } from '@/data/products-db';
 import { routing } from '@/i18n/routing';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://karta-commerce.ci';
 
   // Static routes for each locale
@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]);
 
   // Product routes for each locale
+  const motorcycles = await getMotorcycles();
   const productRoutes = routing.locales.flatMap((locale) =>
     motorcycles.map((motorcycle) => ({
       url: `${baseUrl}/${locale}/produits/${motorcycle.id}`,

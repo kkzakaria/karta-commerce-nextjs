@@ -160,5 +160,44 @@
     "title": "KARTA COMMERCE GENERAL - La qualité aux meilleurs prix | Motos QASKI",
     "description": "KARTA COMMERCE GENERAL vous propose sa gamme QASKI de motos premium en Côte d'Ivoire. QS125, QS150, tricycles utilitaires. La qualité aux meilleurs prix avec service après-vente, financement et livraison rapide.",
     "keywords": "moto, Côte d'Ivoire, Abidjan, QS125, tricycle, concessionnaire, vente moto, financement moto"
+  },
+  "Admin": {
+    "title": "Administration",
+    "logout": "Déconnexion",
+    "navigation": {
+      "menu": "Menu",
+      "dashboard": "Tableau de bord",
+      "products": "Produits",
+      "addProduct": "Ajouter un produit",
+      "analytics": "Analyses"
+    },
+    "role": {
+      "administrator": "Administrateur"
+    },
+    "auth": {
+      "title": "Administration KARTA COMMERCE",
+      "subtitle": "Connectez-vous pour gérer les produits",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Mot de passe",
+      "login": "Se connecter",
+      "connecting": "Connexion...",
+      "connectionError": "Erreur de connexion"
+    },
+    "dashboard": {
+      "title": "Tableau de Bord",
+      "subtitle": "Vue d'ensemble de votre administration",
+      "loading": "Chargement...",
+      "stats": {
+        "products": "Produits",
+        "views": "Vues",
+        "contacts": "Contacts",
+        "orders": "Commandes"
+      },
+      "recentActivity": {
+        "title": "Activité Récente",
+        "noActivity": "Aucune activité récente"
+      }
+    }
   }
 }

@@ -1,10 +1,18 @@
 import './globals.css';
+import { Inter } from 'next/font/google';
 
-// Note: Metadata and fonts are handled in [locale]/layout.tsx for i18n support
+const inter = Inter({ subsets: ['latin'] });
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <html lang="fr">
+      <body className={inter.className}>
+        {children}
+      </body>
+    </html>
+  );
 }

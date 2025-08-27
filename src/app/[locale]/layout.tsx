@@ -69,16 +69,12 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
-        <NextIntlClientProvider messages={clientMessages} locale={locale}>
-          <Header />
-          <main className="pt-20">
-            {children}
-          </main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={clientMessages} locale={locale}>
+      <Header />
+      <main className="pt-20">
+        {children}
+      </main>
+      <Footer />
+    </NextIntlClientProvider>
   );
 }

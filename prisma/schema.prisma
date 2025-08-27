@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Motorcycle {
+  id              String   @id
+  name            String
+  subtitle        String
+  engine          String
+  power           String
+  torque          String
+  maxSpeed        String
+  fuelConsumption String
+  weight          String
+  maxLoad         String
+  dimensions      String
+  wheelbase       String
+  brakeType       String
+  fuelCapacity    String
+  starter         String
+  tires           String
+  containerQty    String
+  bore            String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("motorcycles")
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  username String @unique
+  password String
+  email    String @unique
+
+  @@map("admins")
+}

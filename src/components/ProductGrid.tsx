@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
-import { motorcycles } from '@/data/products';
+import { useEffect, useState } from 'react';
+import { Motorcycle } from '@/types';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -24,6 +25,39 @@ const itemVariants = {
 };
 
 export default function ProductGrid() {
+  const [motorcycles, setMotorcycles] = useState<Motorcycle[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Client-side data fetching
+    const fetchMotorcycles = async () => {
+      try {
+        const response = await fetch('/api/motorcycles');
+        const data = await response.json();
+        setMotorcycles(data.motorcycles || []);
+      } catch (error) {
+        console.error('Error fetching motorcycles:', error);
+        // Fallback: import static data
+        const { motorcycles: staticMotorcycles } = await import('@/data/products');
+        setMotorcycles(staticMotorcycles);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMotorcycles();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="products" className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="text-gray-600">Chargement des produits...</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="products" className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
