@@ -19,7 +19,6 @@ const motorcycleUpdateSchema = z.object({
   fuelCapacity: z.string().min(1, 'Fuel capacity is required').optional(),
   starter: z.string().min(1, 'Starter is required').optional(),
   tires: z.string().min(1, 'Tires is required').optional(),
-  containerQty: z.string().min(1, 'Container quantity is required').optional(),
   bore: z.string().min(1, 'Bore is required').optional(),
 });
 

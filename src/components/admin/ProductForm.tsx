@@ -22,7 +22,6 @@ const productSchema = z.object({
   fuelCapacity: z.string().min(1, 'Capacité réservoir requise'),
   starter: z.string().min(1, 'Démarrage requis'),
   tires: z.string().min(1, 'Pneus requis'),
-  containerQty: z.string().min(1, 'Quantité container requise'),
   bore: z.string().min(1, 'Alésage requis'),
 });
 
@@ -238,18 +237,6 @@ export default function ProductForm({ initialData, onSubmit, isLoading }: Produc
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-qaski-red-primary focus:ring-qaski-red-primary"
           />
           {errors.tires && <p className="mt-1 text-sm text-red-600">{errors.tires.message}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="containerQty" className="block text-sm font-medium text-gray-700">
-            Quantité container
-          </label>
-          <input
-            {...register('containerQty')}
-            type="text"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-qaski-red-primary focus:ring-qaski-red-primary"
-          />
-          {errors.containerQty && <p className="mt-1 text-sm text-red-600">{errors.containerQty.message}</p>}
         </div>
 
         <div>

@@ -113,7 +113,7 @@ export default function ProductsPage() {
                 <div className="flex items-center min-w-0 flex-1">
                   <div className="flex-shrink-0">
                     <Image
-                      src={`/${product.id}/image.png`}
+                      src={`/${product.id}/${product.id}.png`}
                       alt={product.name}
                       width={64}
                       height={64}

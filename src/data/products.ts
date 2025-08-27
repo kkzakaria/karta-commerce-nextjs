@@ -18,7 +18,6 @@ export const motorcycles: Motorcycle[] = [
     fuelCapacity: '11L',
     starter: 'electric and kick',
     tires: '2.75-18/110/90-16',
-    containerQty: '195 sets/40HQ',
     bore: '56.5mm×56.1mm'
   },
   {
@@ -38,7 +37,6 @@ export const motorcycles: Motorcycle[] = [
     fuelCapacity: '14 L',
     starter: 'electric and kick',
     tires: '5.00-12',
-    containerQty: '50 sets /40HQ',
     bore: '62mm*49.5mm'
   },
   {
@@ -58,7 +56,6 @@ export const motorcycles: Motorcycle[] = [
     fuelCapacity: '11 L',
     starter: 'electric and kick',
     tires: '2.75-18/110/90-16',
-    containerQty: '195 sets/40HQ',
     bore: '56.5mm×56.1mm'
   },
   {
@@ -78,7 +75,6 @@ export const motorcycles: Motorcycle[] = [
     fuelCapacity: '4.2 L',
     starter: 'electric and kick',
     tires: 'F:2.50-17; R: 80/90-16',
-    containerQty: '172 sets/40HQ',
     bore: '50mmx55.5mm'
   },
   {
@@ -98,7 +94,6 @@ export const motorcycles: Motorcycle[] = [
     fuelCapacity: '10L',
     starter: 'electric and kick',
     tires: 'F:2.75-18; R: 3.00-18',
-    containerQty: '195 sets/40HQ',
     bore: '56.5mm×56.1mm'
   },
   {
@@ -118,7 +113,6 @@ export const motorcycles: Motorcycle[] = [
     fuelCapacity: '12L',
     starter: 'electric and kick',
     tires: '2.75-18/110/90-16',
-    containerQty: '202 sets/40HQ',
     bore: '56.5mm×56mm'
   },
   {
@@ -138,7 +132,6 @@ export const motorcycles: Motorcycle[] = [
     fuelCapacity: '16 L',
     starter: 'electric and kick',
     tires: '5.00-12',
-    containerQty: '48 sets /40HQ',
     bore: '62mm*49.5mm'
   },
   {
@@ -158,7 +151,6 @@ export const motorcycles: Motorcycle[] = [
     fuelCapacity: '18 L',
     starter: 'electric and kick',
     tires: '5.50-12',
-    containerQty: '45 sets /40HQ',
     bore: '62mm*49.5mm'
   }
 ];

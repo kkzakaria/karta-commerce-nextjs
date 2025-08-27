@@ -27,7 +27,6 @@ model Motorcycle {
   fuelCapacity    String
   starter         String
   tires           String
-  containerQty    String
   bore            String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

@@ -38,7 +38,6 @@ export async function getMotorcycles(): Promise<Motorcycle[]> {
       fuelCapacity: bike.fuelCapacity,
       starter: bike.starter,
       tires: bike.tires,
-      containerQty: bike.containerQty,
       bore: bike.bore,
     }));
 
@@ -79,7 +78,6 @@ export async function getMotorcycleById(id: string): Promise<Motorcycle | undefi
       fuelCapacity: motorcycle.fuelCapacity,
       starter: motorcycle.starter,
       tires: motorcycle.tires,
-      containerQty: motorcycle.containerQty,
       bore: motorcycle.bore,
     };
 

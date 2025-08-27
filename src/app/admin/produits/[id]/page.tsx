@@ -23,7 +23,6 @@ const productSchema = z.object({
   fuelCapacity: z.string().min(1, 'Capacité réservoir requise'),
   starter: z.string().min(1, 'Démarrage requis'),
   tires: z.string().min(1, 'Pneus requis'),
-  containerQty: z.string().min(1, 'Quantité conteneur requise'),
   bore: z.string().min(1, 'Alésage requis'),
 });
 

@@ -50,7 +50,6 @@ export default function ProductPageContent({ motorcycle }: ProductPageContentPro
       specs: [
         { label: t('brakeType'), value: motorcycle.brakeType },
         { label: t('tires'), value: motorcycle.tires },
-        { label: t('containerQty'), value: motorcycle.containerQty },
       ]
     }
   ];

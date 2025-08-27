@@ -23,7 +23,6 @@ const productSchema = z.object({
   fuelCapacity: z.string().min(1, 'Capacité réservoir requise'),
   starter: z.string().min(1, 'Démarrage requis'),
   tires: z.string().min(1, 'Pneus requis'),
-  containerQty: z.string().min(1, 'Quantité conteneur requise'),
   bore: z.string().min(1, 'Alésage requis'),
 });
 
@@ -284,18 +283,6 @@ export default function NewProductPage() {
                 placeholder="AV: 90/90-17, AR: 110/90-17"
               />
               {errors.tires && <p className="mt-1 text-sm text-red-600">{errors.tires.message}</p>}
-            </div>
-
-            {/* Container Qty */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Quantité conteneur</label>
-              <input
-                {...register('containerQty')}
-                type="text"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="78 unités"
-              />
-              {errors.containerQty && <p className="mt-1 text-sm text-red-600">{errors.containerQty.message}</p>}
             </div>
 
             {/* Bore */}

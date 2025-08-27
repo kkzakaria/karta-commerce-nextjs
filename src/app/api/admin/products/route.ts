@@ -20,7 +20,6 @@ const motorcycleSchema = z.object({
   fuelCapacity: z.string().min(1, 'Fuel capacity is required'),
   starter: z.string().min(1, 'Starter is required'),
   tires: z.string().min(1, 'Tires is required'),
-  containerQty: z.string().min(1, 'Container quantity is required'),
   bore: z.string().min(1, 'Bore is required'),
 });
 
