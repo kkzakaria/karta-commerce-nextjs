@@ -15,7 +15,6 @@ export interface Motorcycle {
   fuelCapacity: string;
   starter: string;
   tires: string;
-  containerQty: string;
   bore: string;
 }
 
