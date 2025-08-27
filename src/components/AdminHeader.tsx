@@ -1,13 +1,10 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Link } from '@/i18n/navigation';
-import LanguageSwitcher from './LanguageSwitcher';
+import Link from 'next/link';
 
 export default function AdminHeader() {
-  const t = useTranslations('Admin');
   const router = useRouter();
 
   const handleLogout = () => {
@@ -32,7 +29,7 @@ export default function AdminHeader() {
               <h1 className="text-xl font-semibold text-gray-900">
                 <span style={{color: '#0000bc'}}>KARTA</span>{' '}
                 <span style={{color: '#ff233f'}}>COMMERCE</span>{' '}
-                <span className="text-gray-600">- {t('title')}</span>
+                <span className="text-gray-600">- Administration</span>
               </h1>
             </div>
           </div>
@@ -43,24 +40,23 @@ export default function AdminHeader() {
               href="/admin/dashboard"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
             >
-              {t('navigation.dashboard')}
+              Tableau de bord
             </Link>
             <Link
               href="/admin/produits"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
             >
-              {t('navigation.products')}
+              Produits
             </Link>
           </nav>
 
-          {/* Right Side - Language + Logout */}
+          {/* Right Side - Logout */}
           <div className="flex items-center space-x-4">
-            <LanguageSwitcher />
             <button
               onClick={handleLogout}
               className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors text-sm font-medium"
             >
-              {t('logout')}
+              Déconnexion
             </button>
           </div>
         </div>

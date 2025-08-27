@@ -36,6 +36,28 @@ const messages = {
           title: "Activité Récente",
           noActivity: "Aucune activité récente"
         }
+      },
+      products: {
+        title: "Gestion des Produits",
+        subtitle: "Gérez votre catalogue de motos",
+        addNew: "Ajouter un produit",
+        edit: "Modifier",
+        delete: "Supprimer",
+        confirmDelete: "Êtes-vous sûr de vouloir supprimer ce produit ?",
+        loading: "Chargement des produits...",
+        notFound: "Produit non trouvé",
+        backToList: "← Retour à la liste"
+      },
+      forms: {
+        cancel: "Annuler",
+        save: "Enregistrer",
+        create: "Créer le produit",
+        update: "Mettre à jour",
+        creating: "Création...",
+        updating: "Mise à jour...",
+        loading: "Chargement...",
+        error: "Une erreur est survenue",
+        success: "Opération réussie"
       }
     }
   }
