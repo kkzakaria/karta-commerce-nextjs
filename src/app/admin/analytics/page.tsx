@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 interface AnalyticsData {
   totalProducts: number;
@@ -23,8 +22,7 @@ interface AnalyticsData {
 }
 
 export default function AnalyticsPage() {
-  const t = useTranslations('Admin');
-  const [data, setData] = useState<AnalyticsData>({
+  const [data] = useState<AnalyticsData>({
     totalProducts: 8,
     totalViews: 2450,
     totalContacts: 89,
@@ -45,7 +43,6 @@ export default function AnalyticsPage() {
     ]
   });
 
-  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="space-y-6">
@@ -240,7 +237,7 @@ export default function AnalyticsPage() {
               <div className="text-3xl font-bold text-blue-600">
                 {Math.round((data.totalContacts / data.totalViews) * 100 * 10) / 10}%
               </div>
-              <div className="text-sm text-gray-500 mt-1">Taux d'engagement</div>
+              <div className="text-sm text-gray-500 mt-1">Taux d&apos;engagement</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-green-600">

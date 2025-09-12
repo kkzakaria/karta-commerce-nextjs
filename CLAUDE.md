@@ -10,6 +10,8 @@ KARTA COMMERCE GENERAL Next.js application - Modern motorcycle dealership websit
 
 - **Framework**: Next.js 15.5.0 with App Router and Turbopack
 - **Language**: TypeScript with strict mode
+- **Database**: SQLite with Prisma ORM (6.14.0)
+- **Authentication**: JWT with bcryptjs hashing
 - **Internationalization**: next-intl with FR (default) and EN locales
 - **Styling**: Tailwind CSS with custom QASKI/KARTA brand colors
 - **Animations**: Framer Motion for smooth transitions
@@ -32,6 +34,15 @@ npm start
 
 # Linting
 npm run lint
+
+# Database operations (Prisma)
+npx prisma generate          # Generate Prisma client
+npx prisma migrate dev       # Apply database migrations
+npx prisma studio           # Open database browser
+npx prisma db push          # Push schema changes to database
+
+# Data migration script
+npx tsx scripts/migrate-data.ts    # Migrate products and create admin user
 ```
 
 ## Architecture
@@ -41,20 +52,25 @@ npm run lint
 - **Locale Layout** (`src/app/[locale]/layout.tsx`): NextIntlClientProvider, Header/Footer, metadata generation
 - **Homepage** (`src/app/[locale]/page.tsx`): Component composition (Hero → ProductGrid → About → Contact)
 - **Dynamic Routes** (`src/app/[locale]/produits/[id]/page.tsx`): Static generation for all motorcycle models × all locales
-- **API Routes** (`src/app/api/contact/route.ts`): Contact form submission endpoint
+- **Admin System** (`src/app/admin/*`): Protected admin dashboard with authentication, product management, analytics
+- **Admin Login** (`src/app/admin-login/page.tsx`): JWT-based authentication endpoint
+- **API Routes**: Contact form (`api/contact`), Admin operations (`api/admin/*`), Motorcycle CRUD (`api/motorcycles`)
 - **SEO Integration**: Sitemap generation (`sitemap.ts`) and robots.txt (`robots.txt/route.ts`)
 
 ### Data Architecture
+- **Database** (`prisma/schema.prisma`): SQLite with Motorcycle and Admin models, managed via Prisma ORM
 - **Product Data** (`src/data/products.ts`): 8 motorcycle models with complete specifications, contact info, helper functions
 - **TypeScript Types** (`src/types/index.ts`): Motorcycle interface (19 fields), ContactFormData, ContactInfo
 - **Static Assets**: Each product has folder in `/public/{productId}/` with PNG image and PDF spec sheet
 - **Translation Files** (`messages/fr.json`, `messages/en.json`): Complete UI translations for both locales
 - **Contact Info**: Centralized in products.ts with bilingual support
+- **Authentication** (`src/lib/auth.ts`): JWT token management, password hashing, request authentication
 
 ### Component Organization
-- **Layout Components**: Header (fixed nav + mobile menu), Footer
+- **Layout Components**: Header (fixed nav + mobile menu), Footer, AdminHeader, AdminSidebar
 - **Page Sections**: Hero, ProductGrid, AboutSection, ContactSection  
 - **Product Components**: ProductCard (with hover animations), ProductPageContent
+- **Admin Components**: ProductForm (create/edit), FileUpload (image/PDF handling), Dashboard widgets
 - **Utility Components**: WhatsAppButton (direct integration), ContactModal, Modal
 
 ### Key Implementation Patterns
@@ -124,3 +140,35 @@ Each motorcycle has 19 standardized fields including technical specs (engine, po
 - **Email Endpoint**: `/api/contact` handles form submissions with Zod validation
 - **Configuration Guide**: See `SMTP_SETUP.md` for detailed provider-specific setup (Gmail, Outlook, OVH, Gandi)
 - **Email Format**: Branded HTML emails with visitor details and product interest
+
+## Admin System Architecture
+
+### Database Setup
+- **SQLite Database**: Local development with `DATABASE_URL` in environment
+- **Prisma Client**: Auto-generated client for type-safe database operations
+- **Models**: `Motorcycle` (19 fields matching data structure), `Admin` (username/email/password)
+- **Migration**: Use `scripts/migrate-data.ts` to seed database with existing product data
+
+### Authentication Flow
+- **JWT Tokens**: 7-day expiration, stored in localStorage for admin sessions
+- **Password Security**: bcrypt hashing with 12 salt rounds
+- **Route Protection**: `AdminLayout` checks token validity, redirects to `/admin-login`
+- **API Security**: Bearer token validation in admin API routes
+- **Default Admin**: Created via migration script (username: admin, password: admin123)
+
+### Admin Routes Structure
+```
+/admin-login          → JWT authentication
+/admin/
+├── dashboard         → Analytics overview
+├── produits         → Product management CRUD
+│   ├── nouveau      → Create new product
+│   └── [id]/edit    → Edit existing product
+└── analytics        → Business metrics dashboard
+```
+
+### Development Workflow
+1. **Database Setup**: `npx prisma generate` → `npx prisma db push`
+2. **Seed Data**: `npx tsx scripts/migrate-data.ts` (creates motorcycles + admin)
+3. **Admin Access**: Login at `/admin-login` with default credentials
+4. **Environment**: Set `JWT_SECRET`, `DATABASE_URL`, `ADMIN_*` variables

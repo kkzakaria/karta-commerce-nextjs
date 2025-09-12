@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -57,9 +56,6 @@ export default function Header() {
                 </Link>
               ))}
             </div>
-            <div className="ml-8">
-              <LanguageSwitcher />
-            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -107,9 +103,6 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <div className="px-3 py-2">
-            <LanguageSwitcher />
-          </div>
         </div>
       </motion.div>
     </header>
