@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,7 +34,6 @@ interface Motorcycle extends ProductForm {
 }
 
 export default function EditProductPage() {
-  const t = useTranslations('Admin');
   const router = useRouter();
   const params = useParams();
   const productId = params.id as string;
@@ -54,11 +52,7 @@ export default function EditProductPage() {
     resolver: zodResolver(productSchema),
   });
 
-  useEffect(() => {
-    fetchProduct();
-  }, [productId]);
-
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       const response = await fetch(`/api/admin/products/${productId}`, {
         headers: {
@@ -84,7 +78,11 @@ export default function EditProductPage() {
     } finally {
       setIsLoadingProduct(false);
     }
-  };
+  }, [productId, setValue]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
 
   const onSubmit = async (data: ProductForm) => {
     setIsLoading(true);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 interface DashboardStats {
@@ -12,13 +12,12 @@ interface DashboardStats {
 
 export default function AdminDashboardPage() {
   const t = useTranslations('Admin.dashboard');
-  const [stats, setStats] = useState<DashboardStats>({
+  const [stats] = useState<DashboardStats>({
     totalProducts: 8, // Static for now
     totalViews: 1250,
     totalContacts: 47,
     totalOrders: 23
   });
-  const [isLoading, setIsLoading] = useState(false);
 
   const statCards = [
     {
@@ -47,13 +46,6 @@ export default function AdminDashboardPage() {
     }
   ];
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-64">
-        <div className="text-gray-600">{t('loading')}</div>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-6">
