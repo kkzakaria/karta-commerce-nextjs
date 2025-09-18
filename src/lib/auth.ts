@@ -36,3 +36,23 @@ export function getTokenFromRequest(request: Request): string | null {
   }
   return null;
 }
+
+export function verifyAuth(request: Request): { isValid: boolean; payload?: JWTPayload; error?: string } {
+  try {
+    const token = getTokenFromRequest(request);
+
+    if (!token) {
+      return { isValid: false, error: 'Token manquant' };
+    }
+
+    const payload = verifyToken(token);
+
+    if (!payload) {
+      return { isValid: false, error: 'Token invalide' };
+    }
+
+    return { isValid: true, payload };
+  } catch (error) {
+    return { isValid: false, error: 'Erreur d\'authentification' };
+  }
+}

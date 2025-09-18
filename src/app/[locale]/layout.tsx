@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ReferralTracker from '@/components/ReferralTracker';
 import type { Metadata } from 'next';
 
 
@@ -68,6 +69,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={clientMessages} locale={locale}>
+      <ReferralTracker />
       <Header />
       <main className="pt-20">
         {children}

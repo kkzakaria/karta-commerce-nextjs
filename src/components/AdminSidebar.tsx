@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
-  HomeIcon, 
-  CubeIcon, 
+import {
+  HomeIcon,
+  CubeIcon,
   PlusCircleIcon,
-  ChartBarIcon 
+  ChartBarIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 
 export default function AdminSidebar() {
@@ -27,6 +28,11 @@ export default function AdminSidebar() {
       href: '/admin/produits/nouveau',
       label: 'Ajouter un produit',
       icon: PlusCircleIcon
+    },
+    {
+      href: '/admin/referrals',
+      label: 'Référenceurs',
+      icon: UserGroupIcon
     },
     {
       href: '/admin/analytics',
