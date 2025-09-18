@@ -147,7 +147,7 @@ export async function getReferrerStats(code: string) {
       return null;
     }
 
-    const totalRevenue = referrer.conversions.reduce((sum, conv) => sum + conv.amount, 0);
+    const totalRevenue = referrer.conversions.reduce((sum, conv) => sum + Number(conv.amount), 0);
     const conversionRate = referrer._count.contacts > 0
       ? (referrer._count.conversions / referrer._count.contacts) * 100
       : 0;

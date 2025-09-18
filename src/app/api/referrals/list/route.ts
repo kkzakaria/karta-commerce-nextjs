@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
         });
 
         const totalRevenue = confirmedConversions.reduce(
-          (sum, conv) => sum + conv.amount,
+          (sum, conv) => sum + Number(conv.amount),
           0
         );
 
@@ -57,8 +57,8 @@ export async function GET(request: NextRequest) {
           phone: referrer.phone,
           code: referrer.code,
           status: referrer.status,
-          commission: referrer.commission,
-          totalEarnings: referrer.totalEarnings,
+          commission: Number(referrer.commission),
+          totalEarnings: Number(referrer.totalEarnings),
           createdAt: referrer.createdAt,
           stats: {
             visits: referrer._count.visits,
