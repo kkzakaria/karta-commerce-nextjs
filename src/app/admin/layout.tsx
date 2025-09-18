@@ -69,6 +69,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -96,13 +97,27 @@ export default function AdminLayout({
   return (
     <NextIntlClientProvider messages={messages.fr} locale="fr">
       <div className="min-h-screen bg-gray-100">
-        <AdminHeader />
+        <AdminHeader
+          onMenuClick={() => setSidebarOpen(true)}
+          sidebarOpen={sidebarOpen}
+        />
         <div className="flex">
-          <AdminSidebar />
-          <main className="flex-1 p-6">
+          <AdminSidebar
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+          />
+          <main className="flex-1 p-4 md:p-6 transition-all duration-300 md:ml-0">
             {children}
           </main>
         </div>
+
+        {/* Mobile overlay */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
       </div>
     </NextIntlClientProvider>
   );

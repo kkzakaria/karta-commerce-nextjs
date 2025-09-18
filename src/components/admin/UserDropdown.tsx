@@ -57,20 +57,20 @@ export default function UserDropdown({ username = 'Admin' }: UserDropdownProps) 
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+        className="flex items-center space-x-2 p-2 md:px-3 md:py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors touch-manipulation"
       >
-        <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+        <div className="w-8 h-8 md:w-8 md:h-8 bg-blue-600 rounded-full flex items-center justify-center">
           <span className="text-sm font-bold text-white">
             {username.charAt(0).toUpperCase()}
           </span>
         </div>
         <span className="text-sm font-medium hidden md:block">{username}</span>
-        <ChevronDownIcon className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDownIcon className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''} hidden md:block`} />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+        <div className="absolute right-0 mt-2 w-64 md:w-56 bg-white border border-gray-200 rounded-md shadow-lg z-50">
           {/* User Info Header */}
           <div className="px-4 py-3 border-b border-gray-100">
             <div className="flex items-center space-x-3">
@@ -95,9 +95,9 @@ export default function UserDropdown({ username = 'Admin' }: UserDropdownProps) 
                   key={item.href + item.label}
                   href={item.href}
                   onClick={item.onClick}
-                  className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 md:py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors touch-manipulation"
                 >
-                  <Icon className="h-4 w-4 text-gray-400" />
+                  <Icon className="h-5 w-5 md:h-4 md:w-4 text-gray-400" />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -109,9 +109,9 @@ export default function UserDropdown({ username = 'Admin' }: UserDropdownProps) 
             {/* Logout */}
             <button
               onClick={handleLogout}
-              className="flex items-center space-x-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left"
+              className="flex items-center space-x-3 px-4 py-3 md:py-2 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left touch-manipulation"
             >
-              <ArrowRightOnRectangleIcon className="h-4 w-4 text-red-500" />
+              <ArrowRightOnRectangleIcon className="h-5 w-5 md:h-4 md:w-4 text-red-500" />
               <span>Déconnexion</span>
             </button>
           </div>
