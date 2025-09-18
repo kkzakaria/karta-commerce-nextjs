@@ -28,6 +28,7 @@ export default function ReferralsPage() {
   const [referrers, setReferrers] = useState<ReferrerStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
   const router = useRouter();
 
   const fetchReferrers = useCallback(async () => {
@@ -81,6 +82,70 @@ export default function ReferralsPage() {
       case 'inactive': return 'bg-gray-100 text-gray-800';
       case 'suspended': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const handleDelete = async (id: string, name: string) => {
+    if (!confirm(`Êtes-vous sûr de vouloir supprimer le référenceur "${name}" ? Cette action est irréversible.`)) {
+      return;
+    }
+
+    setDeleting(id);
+    try {
+      const token = localStorage.getItem('admin-token');
+      const response = await fetch(`/api/referrals/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete referrer');
+      }
+
+      // Refresh the list
+      fetchReferrers();
+    } catch (error) {
+      console.error('Error deleting referrer:', error);
+      alert('Erreur lors de la suppression');
+    } finally {
+      setDeleting(null);
+    }
+  };
+
+  const toggleStatus = async (id: string, currentStatus: string) => {
+    const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+
+    try {
+      const token = localStorage.getItem('admin-token');
+      const referrer = referrers.find(r => r.id === id);
+      if (!referrer) return;
+
+      const response = await fetch(`/api/referrals/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name: referrer.name,
+          email: referrer.email,
+          phone: referrer.phone,
+          commission: referrer.commission,
+          status: newStatus
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update status');
+      }
+
+      // Refresh the list
+      fetchReferrers();
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('Erreur lors de la mise à jour du statut');
     }
   };
 
@@ -212,21 +277,40 @@ export default function ReferralsPage() {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(referrer.status)}`}>
+                  <button
+                    onClick={() => toggleStatus(referrer.id, referrer.status)}
+                    className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full transition-colors hover:opacity-80 ${getStatusColor(referrer.status)}`}
+                    title={referrer.status === 'active' ? 'Cliquer pour désactiver' : 'Cliquer pour activer'}
+                  >
                     {referrer.status === 'active' ? 'Actif' :
                      referrer.status === 'inactive' ? 'Inactif' : 'Suspendu'}
-                  </span>
+                  </button>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <Link
-                    href={`/admin/referrals/${referrer.id}`}
-                    className="text-blue-600 hover:text-blue-900 mr-3"
-                  >
-                    Détails
-                  </Link>
-                  <button className="text-gray-600 hover:text-gray-900">
-                    Éditer
-                  </button>
+                  <div className="flex space-x-2">
+                    <Link
+                      href={`/admin/referrals/${referrer.id}`}
+                      className="text-blue-600 hover:text-blue-900"
+                      title="Voir les détails"
+                    >
+                      👁️
+                    </Link>
+                    <Link
+                      href={`/admin/referrals/${referrer.id}/edit`}
+                      className="text-green-600 hover:text-green-900"
+                      title="Éditer"
+                    >
+                      ✏️
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(referrer.id, referrer.name)}
+                      disabled={deleting === referrer.id}
+                      className="text-red-600 hover:text-red-900 disabled:opacity-50"
+                      title="Supprimer"
+                    >
+                      {deleting === referrer.id ? '⏳' : '🗑️'}
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
