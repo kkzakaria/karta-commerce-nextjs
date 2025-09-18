@@ -7,7 +7,8 @@ import {
   CubeIcon,
   PlusCircleIcon,
   ChartBarIcon,
-  UserGroupIcon
+  UserGroupIcon,
+  UserIcon
 } from '@heroicons/react/24/outline';
 
 export default function AdminSidebar() {
@@ -38,6 +39,11 @@ export default function AdminSidebar() {
       href: '/admin/analytics',
       label: 'Analyses',
       icon: ChartBarIcon
+    },
+    {
+      href: '/admin/profile',
+      label: 'Mon Profil',
+      icon: UserIcon
     }
   ];
 

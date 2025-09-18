@@ -1,16 +1,10 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import UserDropdown from '@/components/admin/UserDropdown';
 
 export default function AdminHeader() {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    localStorage.removeItem('admin-token');
-    router.push('/admin-login');
-  };
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
@@ -50,14 +44,9 @@ export default function AdminHeader() {
             </Link>
           </nav>
 
-          {/* Right Side - Logout */}
+          {/* Right Side - User Menu */}
           <div className="flex items-center space-x-4">
-            <button
-              onClick={handleLogout}
-              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors text-sm font-medium"
-            >
-              Déconnexion
-            </button>
+            <UserDropdown />
           </div>
         </div>
       </div>
