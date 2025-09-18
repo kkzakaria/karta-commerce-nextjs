@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create visit record
-    const visit = await prisma.referralVisit.create({
+    await prisma.referralVisit.create({
       data: {
         referrerId: referrer.id,
         page: validatedData.page,

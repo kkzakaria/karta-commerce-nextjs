@@ -21,8 +21,8 @@ async function createAdmin() {
     console.log('Email:', admin.email);
     console.log('Password: admin123');
     console.log('\n⚠️  Please change the password after first login!');
-  } catch (error: any) {
-    if (error.code === 'P2002') {
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'code' in error && error.code === 'P2002') {
       console.log('❌ Admin user already exists with this username or email');
     } else {
       console.error('Error creating admin:', error);

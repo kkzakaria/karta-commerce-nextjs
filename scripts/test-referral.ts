@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcryptjs';
 import { generateReferralCode } from '../src/lib/referral';
 
 const prisma = new PrismaClient();
@@ -25,7 +24,7 @@ async function testReferralSystem() {
 
     // 2. Simulate a visit
     console.log('2. Simulating a referral visit...');
-    const visit = await prisma.referralVisit.create({
+    await prisma.referralVisit.create({
       data: {
         referrerId: testReferrer.id,
         page: '/produits/qs125-8',
@@ -38,7 +37,7 @@ async function testReferralSystem() {
 
     // 3. Simulate a contact
     console.log('3. Simulating a referral contact...');
-    const contact = await prisma.referralContact.create({
+    await prisma.referralContact.create({
       data: {
         referrerId: testReferrer.id,
         name: 'Client Test',

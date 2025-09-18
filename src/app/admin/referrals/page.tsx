@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -32,9 +32,9 @@ export default function ReferralsPage() {
 
   useEffect(() => {
     fetchReferrers();
-  }, []);
+  }, [fetchReferrers]);
 
-  const fetchReferrers = async () => {
+  const fetchReferrers = useCallback(async () => {
     try {
       const token = localStorage.getItem('admin-token');
       if (!token) {
@@ -63,7 +63,7 @@ export default function ReferralsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
 
   const copyToClipboard = async (text: string, code: string) => {
     try {

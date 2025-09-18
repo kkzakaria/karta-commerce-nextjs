@@ -52,7 +52,7 @@ export function verifyAuth(request: Request): { isValid: boolean; payload?: JWTP
     }
 
     return { isValid: true, payload };
-  } catch (error) {
+  } catch {
     return { isValid: false, error: 'Erreur d\'authentification' };
   }
 }

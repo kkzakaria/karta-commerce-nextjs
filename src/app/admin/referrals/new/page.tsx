@@ -13,7 +13,13 @@ export default function NewReferrerPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [createdReferrer, setCreatedReferrer] = useState<any>(null);
+  const [createdReferrer, setCreatedReferrer] = useState<{
+    id: string;
+    name: string;
+    email: string;
+    code: string;
+    referralLink: string;
+  } | null>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,8 +50,8 @@ export default function NewReferrerPage() {
 
       const data = await response.json();
       setCreatedReferrer(data.referrer);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'Une erreur est survenue');
     } finally {
       setLoading(false);
     }
@@ -232,7 +238,7 @@ export default function NewReferrerPage() {
           <h3 className="font-semibold text-blue-900 mb-2">ℹ️ Information</h3>
           <p className="text-sm text-blue-700">
             Un code unique sera généré automatiquement pour ce référenceur.
-            Il pourra l'utiliser pour générer des liens de tracking vers votre site.
+            Il pourra l&apos;utiliser pour générer des liens de tracking vers votre site.
           </p>
         </div>
       </div>

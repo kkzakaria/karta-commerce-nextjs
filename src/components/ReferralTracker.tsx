@@ -59,7 +59,7 @@ export default function ReferralTracker() {
       <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-b border-blue-200">
         <div className="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8">
           <p className="text-sm text-center text-blue-800">
-            🎉 Vous bénéficiez d'un accès privilégié via notre partenaire (Code: <strong>{refCode}</strong>)
+            🎉 Vous bénéficiez d&apos;un accès privilégié via notre partenaire (Code: <strong>{refCode}</strong>)
           </p>
         </div>
       </div>
