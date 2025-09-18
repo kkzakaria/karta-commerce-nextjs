@@ -12,7 +12,7 @@ export function generateReferralCode(prefix: string = 'KCG'): string {
 
 // Store referral code in cookie
 export async function setReferralCookie(code: string) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.set('ref_code', code, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -24,7 +24,7 @@ export async function setReferralCookie(code: string) {
 
 // Get referral code from cookie
 export async function getReferralCookie(): Promise<string | null> {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const refCode = cookieStore.get('ref_code');
   return refCode?.value || null;
 }

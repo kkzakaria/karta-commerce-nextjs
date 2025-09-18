@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const validatedData = trackSchema.parse(body);
 
     // Get IP address and user agent
-    const headersList = headers();
+    const headersList = await headers();
     const ipAddress = headersList.get('x-forwarded-for')?.split(',')[0] ||
                      headersList.get('x-real-ip') ||
                      'unknown';

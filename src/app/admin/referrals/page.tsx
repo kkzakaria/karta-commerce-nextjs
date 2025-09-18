@@ -30,10 +30,6 @@ export default function ReferralsPage() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    fetchReferrers();
-  }, [fetchReferrers]);
-
   const fetchReferrers = useCallback(async () => {
     try {
       const token = localStorage.getItem('admin-token');
@@ -64,6 +60,10 @@ export default function ReferralsPage() {
       setLoading(false);
     }
   }, [router]);
+
+  useEffect(() => {
+    fetchReferrers();
+  }, [fetchReferrers]);
 
   const copyToClipboard = async (text: string, code: string) => {
     try {

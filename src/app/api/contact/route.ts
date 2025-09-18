@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     const validatedData = contactSchema.parse(body);
 
     // Track referral contact if applicable
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const refCode = cookieStore.get('ref_code')?.value;
 
     if (refCode) {
