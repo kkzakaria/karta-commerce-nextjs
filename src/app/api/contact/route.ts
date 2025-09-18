@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { z } from 'zod';
 import { sendEmailViaGraph, verifyGraphConfig, type EmailData } from '@/lib/graph';
+import { trackReferralContact } from '@/lib/referral';
+import { cookies } from 'next/headers';
 
 // Schema de validation pour les données du formulaire
 const contactSchema = z.object({
@@ -49,6 +51,26 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = contactSchema.parse(body);
 
+    // Track referral contact if applicable
+    const cookieStore = cookies();
+    const refCode = cookieStore.get('ref_code')?.value;
+
+    if (refCode) {
+      try {
+        await trackReferralContact(refCode, {
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          productInterest: validatedData.product,
+          message: validatedData.message
+        });
+        console.log('Referral contact tracked for code:', refCode);
+      } catch (error) {
+        console.error('Error tracking referral contact:', error);
+        // Continue with email sending even if tracking fails
+      }
+    }
+
     // Construction du contenu de l'email
     const { name, email, phone, product, message } = validatedData;
     
@@ -58,15 +80,16 @@ export async function POST(request: NextRequest) {
           <h1 style="color: white; margin: 0;">KARTA COMMERCE GENERAL</h1>
           <p style="color: white; margin: 5px 0 0 0; font-size: 14px;">Nouveau message depuis le site web</p>
         </div>
-        
+
         <div style="padding: 30px; background: #f9f9f9;">
           <h2 style="color: #0000bc; margin-bottom: 20px;">Détails du contact</h2>
-          
+
           <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <p><strong style="color: #0000bc;">Nom :</strong> ${name}</p>
             <p><strong style="color: #0000bc;">Email :</strong> ${email}</p>
             ${phone ? `<p><strong style="color: #0000bc;">Téléphone :</strong> ${phone}</p>` : ''}
             ${product ? `<p><strong style="color: #0000bc;">Produit d'intérêt :</strong> ${product}</p>` : ''}
+            ${refCode ? `<p><strong style="color: #ff233f;">🎯 Référencé par :</strong> ${refCode}</p>` : ''}
           </div>
           
           <div style="background: white; padding: 20px; border-radius: 8px;">

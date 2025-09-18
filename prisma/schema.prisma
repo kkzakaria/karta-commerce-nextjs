@@ -42,3 +42,70 @@ model Admin {
 
   @@map("admins")
 }
+
+model Referrer {
+  id                String              @id @default(cuid())
+  name              String
+  email             String              @unique
+  phone             String?
+  code              String              @unique
+  status            String              @default("active") // active, inactive, suspended
+  commission        Float               @default(0) // Commission percentage
+  totalEarnings     Float               @default(0)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  visits            ReferralVisit[]
+  contacts          ReferralContact[]
+  conversions       ReferralConversion[]
+
+  @@map("referrers")
+}
+
+model ReferralVisit {
+  id         String   @id @default(cuid())
+  referrerId String
+  referrer   Referrer @relation(fields: [referrerId], references: [id], onDelete: Cascade)
+  ipAddress  String?
+  userAgent  String?
+  page       String
+  sessionId  String
+  timestamp  DateTime @default(now())
+
+  @@index([referrerId])
+  @@map("referral_visits")
+}
+
+model ReferralContact {
+  id              String              @id @default(cuid())
+  referrerId      String
+  referrer        Referrer            @relation(fields: [referrerId], references: [id], onDelete: Cascade)
+  name            String
+  email           String
+  phone           String?
+  productInterest String?
+  message         String
+  timestamp       DateTime            @default(now())
+
+  conversions     ReferralConversion[]
+
+  @@index([referrerId])
+  @@map("referral_contacts")
+}
+
+model ReferralConversion {
+  id         String          @id @default(cuid())
+  referrerId String
+  referrer   Referrer        @relation(fields: [referrerId], references: [id], onDelete: Cascade)
+  contactId  String?
+  contact    ReferralContact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  amount     Float
+  product    String?
+  status     String          @default("pending") // pending, confirmed, cancelled
+  notes      String?
+  timestamp  DateTime        @default(now())
+
+  @@index([referrerId])
+  @@index([contactId])
+  @@map("referral_conversions")
+}
