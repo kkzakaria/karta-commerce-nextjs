@@ -2,16 +2,30 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 import UserDropdown from '@/components/admin/UserDropdown';
 
-export default function AdminHeader() {
+interface AdminHeaderProps {
+  onMenuClick: () => void;
+  sidebarOpen: boolean;
+}
+
+export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo + Admin Title */}
+          {/* Mobile menu button + Logo + Admin Title */}
           <div className="flex items-center space-x-4">
+            {/* Hamburger Menu - Mobile Only */}
+            <button
+              onClick={onMenuClick}
+              className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+              aria-label="Ouvrir le menu"
+            >
+              <Bars3Icon className="h-6 w-6" />
+            </button>
             <Image
               src="/logo_kcg.png"
               alt="KARTA COMMERCE GENERAL"

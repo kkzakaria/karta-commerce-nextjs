@@ -8,10 +8,16 @@ import {
   PlusCircleIcon,
   ChartBarIcon,
   UserGroupIcon,
-  UserIcon
+  UserIcon,
+  XMarkIcon
 } from '@heroicons/react/24/outline';
 
-export default function AdminSidebar() {
+interface AdminSidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
 
   const menuItems = [
@@ -52,11 +58,25 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="w-64 bg-gray-900 text-white min-h-screen">
+    <aside className={`
+      fixed md:relative top-0 left-0 z-50 w-64 bg-gray-900 text-white min-h-screen
+      transform transition-transform duration-300 ease-in-out
+      ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+    `}>
       <div className="p-6">
-        <h2 className="text-lg font-semibold text-gray-300 mb-6">
-          Menu
-        </h2>
+        {/* Mobile close button */}
+        <div className="flex justify-between items-center mb-6 md:block">
+          <h2 className="text-lg font-semibold text-gray-300">
+            Menu
+          </h2>
+          <button
+            onClick={onClose}
+            className="md:hidden p-2 rounded-md text-gray-300 hover:bg-gray-800 transition-colors"
+            aria-label="Fermer le menu"
+          >
+            <XMarkIcon className="h-6 w-6" />
+          </button>
+        </div>
         
         <nav className="space-y-2">
           {menuItems.map((item) => {
@@ -67,10 +87,11 @@ export default function AdminSidebar() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => onClose()}
                 className={`
                   flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-                  ${active 
-                    ? 'bg-blue-600 text-white' 
+                  ${active
+                    ? 'bg-blue-600 text-white'
                     : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                   }
                 `}

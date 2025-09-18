@@ -198,45 +198,156 @@ export default function ReferralsPage() {
         </div>
       </div>
 
-      {/* Referrers Table */}
+      {/* Referrers List - Responsive Table/Cards */}
       <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Référenceur
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Code & Lien
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Statistiques
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Performance
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+        {/* Desktop Table */}
+        <div className="hidden lg:block">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Référenceur
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Code & Lien
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Statistiques
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Performance
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {referrers.map((referrer) => (
+                <tr key={referrer.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      <div className="text-sm font-medium text-gray-900">{referrer.name}</div>
+                      <div className="text-sm text-gray-500">{referrer.email}</div>
+                      {referrer.phone && (
+                        <div className="text-sm text-gray-400">{referrer.phone}</div>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-2">
+                        <code className="bg-gray-100 px-2 py-1 rounded text-sm">{referrer.code}</code>
+                        <button
+                          onClick={() => copyToClipboard(referrer.code, referrer.code)}
+                          className="text-gray-400 hover:text-gray-600"
+                        >
+                          {copiedCode === referrer.code ? '✓' : '📋'}
+                        </button>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="text"
+                          value={referrer.referralLink}
+                          readOnly
+                          className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded border-0 w-full"
+                        />
+                        <button
+                          onClick={() => copyToClipboard(referrer.referralLink, `link_${referrer.code}`)}
+                          className="text-gray-400 hover:text-gray-600"
+                        >
+                          {copiedCode === `link_${referrer.code}` ? '✓' : '🔗'}
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm">
+                      <div>👁️ {referrer.stats.visits} visites</div>
+                      <div>📧 {referrer.stats.contacts} contacts</div>
+                      <div>✅ {referrer.stats.conversions} conversions</div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm">
+                      <div>💰 {referrer.stats.totalRevenue.toLocaleString()} FCFA</div>
+                      <div>📈 {referrer.stats.conversionRate}% conversion</div>
+                      <div>💸 {referrer.commission}% commission</div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <button
+                      onClick={() => toggleStatus(referrer.id, referrer.status)}
+                      className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full transition-colors hover:opacity-80 ${getStatusColor(referrer.status)}`}
+                      title={referrer.status === 'active' ? 'Cliquer pour désactiver' : 'Cliquer pour activer'}
+                    >
+                      {referrer.status === 'active' ? 'Actif' :
+                       referrer.status === 'inactive' ? 'Inactif' : 'Suspendu'}
+                    </button>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div className="flex space-x-2">
+                      <Link
+                        href={`/admin/referrals/${referrer.id}`}
+                        className="text-blue-600 hover:text-blue-900"
+                        title="Voir les détails"
+                      >
+                        👁️
+                      </Link>
+                      <Link
+                        href={`/admin/referrals/${referrer.id}/edit`}
+                        className="text-green-600 hover:text-green-900"
+                        title="Éditer"
+                      >
+                        ✏️
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(referrer.id, referrer.name)}
+                        disabled={deleting === referrer.id}
+                        className="text-red-600 hover:text-red-900 disabled:opacity-50"
+                        title="Supprimer"
+                      >
+                        {deleting === referrer.id ? '⏳' : '🗑️'}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile Cards */}
+        <div className="lg:hidden">
+          <div className="divide-y divide-gray-200">
             {referrers.map((referrer) => (
-              <tr key={referrer.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div>
+              <div key={referrer.id} className="p-4 space-y-3">
+                {/* Header with name and status */}
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
                     <div className="text-sm font-medium text-gray-900">{referrer.name}</div>
                     <div className="text-sm text-gray-500">{referrer.email}</div>
                     {referrer.phone && (
                       <div className="text-sm text-gray-400">{referrer.phone}</div>
                     )}
                   </div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="space-y-1">
+                  <button
+                    onClick={() => toggleStatus(referrer.id, referrer.status)}
+                    className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full transition-colors hover:opacity-80 ${getStatusColor(referrer.status)}`}
+                    title={referrer.status === 'active' ? 'Cliquer pour désactiver' : 'Cliquer pour activer'}
+                  >
+                    {referrer.status === 'active' ? 'Actif' :
+                     referrer.status === 'inactive' ? 'Inactif' : 'Suspendu'}
+                  </button>
+                </div>
+
+                {/* Code & Link */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium text-gray-500 uppercase">Code</span>
                     <div className="flex items-center space-x-2">
                       <code className="bg-gray-100 px-2 py-1 rounded text-sm">{referrer.code}</code>
                       <button
@@ -246,76 +357,68 @@ export default function ReferralsPage() {
                         {copiedCode === referrer.code ? '✓' : '📋'}
                       </button>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="text"
-                        value={referrer.referralLink}
-                        readOnly
-                        className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded border-0 w-full"
-                      />
-                      <button
-                        onClick={() => copyToClipboard(referrer.referralLink, `link_${referrer.code}`)}
-                        className="text-gray-400 hover:text-gray-600"
-                      >
-                        {copiedCode === `link_${referrer.code}` ? '✓' : '🔗'}
-                      </button>
-                    </div>
                   </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm">
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      value={referrer.referralLink}
+                      readOnly
+                      className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded border-0 flex-1"
+                    />
+                    <button
+                      onClick={() => copyToClipboard(referrer.referralLink, `link_${referrer.code}`)}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      {copiedCode === `link_${referrer.code}` ? '✓' : '🔗'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Stats in grid */}
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <div className="text-xs font-medium text-gray-500 uppercase mb-1">Statistiques</div>
                     <div>👁️ {referrer.stats.visits} visites</div>
                     <div>📧 {referrer.stats.contacts} contacts</div>
                     <div>✅ {referrer.stats.conversions} conversions</div>
                   </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm">
+                  <div>
+                    <div className="text-xs font-medium text-gray-500 uppercase mb-1">Performance</div>
                     <div>💰 {referrer.stats.totalRevenue.toLocaleString()} FCFA</div>
                     <div>📈 {referrer.stats.conversionRate}% conversion</div>
                     <div>💸 {referrer.commission}% commission</div>
                   </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button
-                    onClick={() => toggleStatus(referrer.id, referrer.status)}
-                    className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full transition-colors hover:opacity-80 ${getStatusColor(referrer.status)}`}
-                    title={referrer.status === 'active' ? 'Cliquer pour désactiver' : 'Cliquer pour activer'}
+                </div>
+
+                {/* Actions */}
+                <div className="flex justify-end space-x-4 pt-2 border-t border-gray-100">
+                  <Link
+                    href={`/admin/referrals/${referrer.id}`}
+                    className="text-blue-600 hover:text-blue-900 text-sm"
+                    title="Voir les détails"
                   >
-                    {referrer.status === 'active' ? 'Actif' :
-                     referrer.status === 'inactive' ? 'Inactif' : 'Suspendu'}
+                    👁️ Détails
+                  </Link>
+                  <Link
+                    href={`/admin/referrals/${referrer.id}/edit`}
+                    className="text-green-600 hover:text-green-900 text-sm"
+                    title="Éditer"
+                  >
+                    ✏️ Éditer
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(referrer.id, referrer.name)}
+                    disabled={deleting === referrer.id}
+                    className="text-red-600 hover:text-red-900 disabled:opacity-50 text-sm"
+                    title="Supprimer"
+                  >
+                    {deleting === referrer.id ? '⏳ Suppression...' : '🗑️ Supprimer'}
                   </button>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <div className="flex space-x-2">
-                    <Link
-                      href={`/admin/referrals/${referrer.id}`}
-                      className="text-blue-600 hover:text-blue-900"
-                      title="Voir les détails"
-                    >
-                      👁️
-                    </Link>
-                    <Link
-                      href={`/admin/referrals/${referrer.id}/edit`}
-                      className="text-green-600 hover:text-green-900"
-                      title="Éditer"
-                    >
-                      ✏️
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(referrer.id, referrer.name)}
-                      disabled={deleting === referrer.id}
-                      className="text-red-600 hover:text-red-900 disabled:opacity-50"
-                      title="Supprimer"
-                    >
-                      {deleting === referrer.id ? '⏳' : '🗑️'}
-                    </button>
-                  </div>
-                </td>
-              </tr>
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        </div>
 
         {referrers.length === 0 && (
           <div className="text-center py-12 text-gray-500">
