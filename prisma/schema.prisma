@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
 }
 
 model Motorcycle {
@@ -50,8 +50,8 @@ model Referrer {
   phone             String?
   code              String              @unique
   status            String              @default("active") // active, inactive, suspended
-  commission        Float               @default(0) // Commission percentage
-  totalEarnings     Float               @default(0)
+  commission        Decimal             @default(0) @db.Decimal(5,2) // Commission percentage
+  totalEarnings     Decimal             @default(0) @db.Decimal(10,2)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 
@@ -59,6 +59,8 @@ model Referrer {
   contacts          ReferralContact[]
   conversions       ReferralConversion[]
 
+  @@index([status])
+  @@index([code])
   @@map("referrers")
 }
 
@@ -73,6 +75,8 @@ model ReferralVisit {
   timestamp  DateTime @default(now())
 
   @@index([referrerId])
+  @@index([sessionId])
+  @@index([timestamp])
   @@map("referral_visits")
 }
 
@@ -84,12 +88,14 @@ model ReferralContact {
   email           String
   phone           String?
   productInterest String?
-  message         String
+  message         String              @db.Text
   timestamp       DateTime            @default(now())
 
   conversions     ReferralConversion[]
 
   @@index([referrerId])
+  @@index([timestamp])
+  @@index([email])
   @@map("referral_contacts")
 }
 
@@ -99,13 +105,15 @@ model ReferralConversion {
   referrer   Referrer        @relation(fields: [referrerId], references: [id], onDelete: Cascade)
   contactId  String?
   contact    ReferralContact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
-  amount     Float
+  amount     Decimal         @db.Decimal(10,2)
   product    String?
   status     String          @default("pending") // pending, confirmed, cancelled
-  notes      String?
+  notes      String?         @db.Text
   timestamp  DateTime        @default(now())
 
   @@index([referrerId])
   @@index([contactId])
+  @@index([status])
+  @@index([timestamp])
   @@map("referral_conversions")
 }

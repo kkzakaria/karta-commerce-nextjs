@@ -10,7 +10,7 @@ KARTA COMMERCE GENERAL Next.js application - Modern motorcycle dealership websit
 
 - **Framework**: Next.js 15.5.0 with App Router and Turbopack
 - **Language**: TypeScript with strict mode
-- **Database**: SQLite with Prisma ORM (6.14.0)
+- **Database**: PostgreSQL with Prisma ORM (6.14.0)
 - **Authentication**: JWT with bcryptjs hashing
 - **Internationalization**: next-intl with FR (default) and EN locales
 - **Styling**: Tailwind CSS with custom QASKI/KARTA brand colors
@@ -58,7 +58,7 @@ npx tsx scripts/migrate-data.ts    # Migrate products and create admin user
 - **SEO Integration**: Sitemap generation (`sitemap.ts`) and robots.txt (`robots.txt/route.ts`)
 
 ### Data Architecture
-- **Database** (`prisma/schema.prisma`): SQLite with Motorcycle and Admin models, managed via Prisma ORM
+- **Database** (`prisma/schema.prisma`): PostgreSQL with Motorcycle, Admin, and Referrer models, managed via Prisma ORM
 - **Product Data** (`src/data/products.ts`): 8 motorcycle models with complete specifications, contact info, helper functions
 - **TypeScript Types** (`src/types/index.ts`): Motorcycle interface (19 fields), ContactFormData, ContactInfo
 - **Static Assets**: Each product has folder in `/public/{productId}/` with PNG image and PDF spec sheet
@@ -144,9 +144,9 @@ Each motorcycle has 19 standardized fields including technical specs (engine, po
 ## Admin System Architecture
 
 ### Database Setup
-- **SQLite Database**: Local development with `DATABASE_URL` in environment
+- **PostgreSQL Database**: Production-ready with Vercel Postgres integration
 - **Prisma Client**: Auto-generated client for type-safe database operations
-- **Models**: `Motorcycle` (19 fields matching data structure), `Admin` (username/email/password)
+- **Models**: `Motorcycle` (19 fields), `Admin` (auth), `Referrer` (referral system with tracking)
 - **Migration**: Use `scripts/migrate-data.ts` to seed database with existing product data
 
 ### Authentication Flow
